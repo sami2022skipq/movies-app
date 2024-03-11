@@ -14,9 +14,9 @@ function App() {
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/fav" element={<Favorites />} />
-        <Route path="*" element={<PageNotFound />} />
-        <Route path="/sign-in" element={<SignIn/>} />
+        <Route path="/sign-in" element={<SignIn />} />
         <Route path="/sign-up" element={<SignUp />} />
+        <Route path="*" element={<PageNotFound />} />
       </Routes>
     </BrowserRouter>
   );
