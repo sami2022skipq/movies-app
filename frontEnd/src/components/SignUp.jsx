@@ -7,20 +7,24 @@ const SignUp = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [conifrmPassword, setConfirmPassword] = useState("");
-
-  const handelsubmit = () => {
-    e.prventDefault();
-    
-    Axios.post("http://localhost:3000/auth/signUp", {
+  const navigator = useNavigate();
+  const handelsubmit = async (e) => {
+    e.preventDefault();
+    await Axios.post("http://localhost:5000/auth/signup", {
       firstName,
       lastName,
       email,
       password,
-    }).then(response=>{
-        console.log(`responce of Axios is ${response}`)
-    }).catch(err=>{
-        console.log(err)
-    });
+    })
+      .then((res) => {
+        if (res.data.status) {
+          console.log(`${res}`);
+          navigator("/sign-in");
+        }
+      })
+      .catch((err) => {
+        console.log(err);
+      });
   };
   return (
     <div className="flex items-center justify-center bg-slate-700">
@@ -33,39 +37,44 @@ const SignUp = () => {
               <input
                 placeholder="First Name"
                 className=" bg-gray-700 text-white border-0 rounded-md p-2 w-1/2 focus:bg-gray-600 focus:outline-none transition ease-in-out duration-150 placeholder-gray-300"
-                type="text" name="firstName"
+                type="text"
+                name="firstName"
                 onChange={(e) => setFirstName(e.target.value)}
               ></input>
               <input
                 placeholder="Last Name"
                 className="bg-gray-700 text-white border-0 rounded-md p-2 w-1/2 focus:bg-gray-600 focus:outline-none transition ease-in-out duration-150 placeholder-gray-300"
-                type="text" name="lastName"
+                type="text"
+                name="lastName"
                 onChange={(e) => setLastName(e.target.value)}
               ></input>
             </div>
             <input
               placeholder="Email"
               className="bg-gray-700 text-white border-0 rounded-md p-2 mb-4 focus:bg-gray-600 focus:outline-none transition ease-in-out duration-150 placeholder-gray-300"
-              type="email" name="email"
+              type="email"
+              name="email"
               onChange={(e) => setEmail(e.target.value)}
             ></input>
             <input
               placeholder="Password"
               className="bg-gray-700 text-white border-0 rounded-md p-2 mb-4 focus:bg-gray-600 focus:outline-none transition ease-in-out duration-150 placeholder-gray-300"
-              type="password" name="password"
+              type="password"
+              name="password"
               onChange={(e) => setPassword(e.target.value)}
             ></input>
             <input
               placeholder="Confirm Password"
               className="bg-gray-700 text-white border-0 rounded-md p-2 mb-4 focus:bg-gray-600 focus:outline-none transition ease-in-out duration-150 placeholder-gray-300"
-              type="password" name="conifrmPassword"
+              type="password"
+              name="conifrmPassword"
               onChange={(e) => setConfirmPassword(e.target.value)}
             ></input>
             <button
               className="bg-gradient-to-r from-indigo-500 to-blue-500  text-white font-medium py-2 px-2  rounded-md hover:bg-indigo-600 hover:to-blue-600 transition ease-in duration-200"
               type="submit"
             >
-              Submit
+              Sign Up
             </button>
             <p className="text-white text-center mt-4 ">
               Already have an account ?{" "}
