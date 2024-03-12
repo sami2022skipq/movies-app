@@ -70,28 +70,27 @@ function Movies() {
             justify-center
             "
       >
-        {movies.length == 0 ? (
-        //   <Oval
-        //     height="80"
-        //     width="80"
-        //     radius="9"
-        //     color="gray"
-        //     secondaryColor="gray"
-        //     ariaLabel="loading"
-        //   />
-        " "
-        ) : (
-          movies.map((movie) => {
-            return (
-              <div
-                onMouseOver={() => {
-                  showEmoji(movie.id);
-                }}
-                onMouseLeave={() => {
-                  hideEmoji(movie.id);
-                }}
-                key={movie.id}
-                className="
+        {movies.length == 0
+          ? //   <Oval
+            //     height="80"
+            //     width="80"
+            //     radius="9"
+            //     color="gray"
+            //     secondaryColor="gray"
+            //     ariaLabel="loading"
+            //   />
+            " "
+          : movies.map((movie) => {
+              return (
+                <div
+                  onMouseOver={() => {
+                    showEmoji(movie.id);
+                  }}
+                  onMouseLeave={() => {
+                    hideEmoji(movie.id);
+                  }}
+                  key={movie.id}
+                  className="
                 bg-center bg-cover    
                 w-[160px]
                 h-[30vh]
@@ -104,47 +103,44 @@ function Movies() {
                  flex items-end 
                  relative
                 "
-                style={{
-                  backgroundImage: `url(
-                                    https://image.tmdb.org/t/p/original/t/p/w500/${movie.poster_path})`,
-                }}
-              >
-                <div
-                  className="p-2
- bg-gray-900
-                                absolute top-2 right-2
-                                rounded-xl
-                               "
                   style={{
-                    display: hovered == movie.id ? "block" : "none",
+                    backgroundImage: `url(
+                                    https://image.tmdb.org/t/p/original/t/p/w500/${movie.poster_path})`,
                   }}
                 >
-                  {favourites.includes(movie.id) == false ? (
-                    <div
-                      className="
+                  <div
+                    className="p-2 bg-gray-900 absolute top-2 right-2 rounded-xl
+                               "
+                    style={{
+                      display: hovered == movie.id ? "block" : "none",
+                    }}
+                  >
+                    {favourites.includes(movie.id) == false ? (
+                      <div
+                        className="
                                 text-2xl
                                 "
-                      onClick={() => {
-                        addEmoji(movie.id);
-                      }}
-                    >
-                      😍
-                    </div>
-                  ) : (
-                    <div
-                      className="
+                        onClick={() => {
+                          addEmoji(movie.id);
+                        }}
+                      >
+                        😍
+                      </div>
+                    ) : (
+                      <div
+                        className="
                                 text-2xl
                                 "
-                      onClick={() => {
-                        removeEmoji(movie.id);
-                      }}
-                    >
-                      ❌
-                    </div>
-                  )}
-                </div>
-                <div
-                  className="
+                        onClick={() => {
+                          removeEmoji(movie.id);
+                        }}
+                      >
+                        ❌
+                      </div>
+                    )}
+                  </div>
+                  <div
+                    className="
                     font-bold text-white
                 bg-gray-900 bg-opacity-60
                 p-2
@@ -152,14 +148,13 @@ function Movies() {
                 w-full
                 rounded-b-xl
                 "
-                >
-                  {" "}
-                  {movie.title || movie.name}
+                  >
+                    {" "}
+                    {movie.title || movie.name}
+                  </div>
                 </div>
-              </div>
-            );
-          })
-        )}
+              );
+            })}
       </div>
       {/* <Pagination
         pageNum={pageNum}

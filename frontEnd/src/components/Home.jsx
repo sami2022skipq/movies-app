@@ -7,7 +7,7 @@ import Paggination from "./Paggination";
 const Home = () => {
   return (
     <div>
-      <List /> 
+      {/* <List />  */}
       {/* <Card />  */}
       {/* <TestCom/> */}
       
