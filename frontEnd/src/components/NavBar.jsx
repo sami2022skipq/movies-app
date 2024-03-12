@@ -8,7 +8,7 @@ const NavBar = () => {
         <Link to="/xyz"><img src="/vite.svg" /></Link>
         <Link className="p-1 rounded-md hover:bg-slate-600" to="/">Home</Link>
         <Link className="p-1 rounded-md hover:bg-slate-600" to="/fav">Favorite</Link>
-        <Link className="p-1 rounded-md hover:bg-slate-600" to="/login">Log In</Link>
+        <Link className="p-1 rounded-md hover:bg-slate-600" to="/sign-in">Log In</Link>
         <Link className="p-1 rounded-md hover:bg-slate-600" to="/sign-up">Sign Up</Link>
       </div>
     </>
