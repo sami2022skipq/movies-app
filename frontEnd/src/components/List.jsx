@@ -8,7 +8,7 @@ const List = () => {
   const storeditems = JSON.parse(localStorage.getItem("favourites"));
   // state Variables
   const [favourites, setFavorites] = useState(() => {
-    const storedItems = localStorage.getItem('favourites');
+    const storedItems = localStorage.getItem("favourites");
     return storedItems ? JSON.parse(storedItems) : [];
   });
   const [movies, setMovies] = useState([]);
@@ -28,27 +28,42 @@ const List = () => {
       setFavorites(newFav);
     }
   };
-  // Remove from favorits 
+  // Remove from favorits
 
-    const removefromFavorits = id => {
-      setFavorites(prevItems => {
-        const updatedItems = [...prevItems];
-        updatedItems.splice(favourites.indexOf(id), 1);
-        return updatedItems;
-      });
-    };
-   
-// Paggination
-  const onPrev = () => pageNum > 1 && setPageNum((pageNum) => pageNum - 1); 
+  const removefromFavorits = (id) => {
+    setFavorites((prevItems) => {
+      const updatedItems = [...prevItems];
+      updatedItems.splice(favourites.indexOf(id), 1);
+      return updatedItems;
+    });
+  };
+
+  // Paggination
+  const onPrev = () => pageNum > 1 && setPageNum((pageNum) => pageNum - 1);
   const onNext = () => setPageNum((pageNum) => pageNum + 1);
+// Api Call
+
   useEffect(() => {
-    axios(
-      `https://api.themoviedb.org/3/trending/all/week?api_key=565dda78aae2b75fafddbc4320a33b38&page=${pageNum}`
-    )
-      // .then((res) => res.json())
-      .then((res) => setMovies([res.data.results]))
-      .catch((err) => console.log(err));
-  }, [pageNum]);
+    const fetchData = async () => {
+      try {
+        const response = await fetch(
+          `https://api.themoviedb.org/3/trending/all/week?api_key=565dda78aae2b75fafddbc4320a33b38&page=${pageNum}`
+        );
+        if (!response.ok) {
+          throw new Error("Failed to fetch data");
+        }
+        const data = await response.json();
+        setMovies(data.results);
+      } catch (error) {
+        console.error("Error fetching data:", error);
+      }
+    };
+
+    fetchData();
+  }, [pageNum]); // eslint-disable-line react-hooks/exhaustive-deps
+
+  
+
   return (
     <>
       <div className="flex flex-wrap justify-center space-x-3">
@@ -56,9 +71,15 @@ const List = () => {
           <h1>Loading...</h1>
         ) : (
           movies.map((movie) => {
-            return movie.map((m) => {
-              return <Card key={m.id} movie={m} favourites={favourites} addToFavorit={addToFavorit} removefromFavorits={removefromFavorits} />;
-            });
+            return (
+              <Card
+                key={movie.id}
+                movie={movie}
+                favourites={favourites}
+                addToFavorit={addToFavorit}
+                removefromFavorits={removefromFavorits}
+              />
+            );
           })
         )}
       </div>
