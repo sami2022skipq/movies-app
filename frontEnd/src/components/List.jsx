@@ -4,8 +4,6 @@ import axios from "axios";
 import Paggination from "./Paggination";
 
 const List = () => {
-  // store Favorite movies data
-  const storeditems = JSON.parse(localStorage.getItem("favourites"));
   // state Variables
   const [favourites, setFavorites] = useState(() => {
     const storedItems = localStorage.getItem("favourites");
@@ -13,7 +11,8 @@ const List = () => {
   });
   const [movies, setMovies] = useState([]);
   const [pageNum, setPageNum] = useState(3);
-  const [hover, setHover] = useState("");
+  const [filteredData, setFilteredData] = useState([]);
+  const [filter, setFilter] = useState("");
 
   useEffect(() => {
     /*Updata data on loca storage*/
@@ -41,7 +40,8 @@ const List = () => {
   // Paggination
   const onPrev = () => pageNum > 1 && setPageNum((pageNum) => pageNum - 1);
   const onNext = () => setPageNum((pageNum) => pageNum + 1);
-// Api Call
+
+  // Api Call
 
   useEffect(() => {
     const fetchData = async () => {
@@ -62,15 +62,44 @@ const List = () => {
     fetchData();
   }, [pageNum]); // eslint-disable-line react-hooks/exhaustive-deps
 
-  
+  // Apply filter when the filter state changes
+  useEffect(() => {
+    const filtered = movies.filter((item) => {
+      let name = item.title || item.name;
+      return name.toLowerCase().includes(filter.toLowerCase());
+    });
+    setFilteredData(filtered);
+  }, [movies, filter]);
+
+  // Filter EvenetListner
+  const handleChangefilter = (e) => {
+    setFilter(e.target.value);
+  };
 
   return (
     <>
+    <div className="flex items-center justify-center mt-8">
+      <input
+        type="text"
+        value={filter}
+        onChange={handleChangefilter}
+        placeholder="Search..."
+        className="border border-gray-300 px-4 py-2 rounded-lg focus:outline-none focus:ring focus:border-blue-400"
+      />
+      <h1
+      
+        className="ml-2 px-4 py-2 bg-blue-500 text-white rounded-lg hover:bg-blue-600 focus:outline-none focus:ring focus:border-blue-400"
+        onClick={() => console.log('Searching for:', searchTerm)}
+      >
+        Search
+      </h1>
+    </div>
+        
       <div className="flex flex-wrap justify-center space-x-3">
         {movies.length == 0 ? (
           <h1>Loading...</h1>
         ) : (
-          movies.map((movie) => {
+          filteredData.map((movie) => {
             return (
               <Card
                 key={movie.id}
