@@ -7,7 +7,7 @@ const Paggination = (props) => {
     <>
       <div className="flex justify-center m-3 mt-4">
         <div
-          className="border  border-r-0 rounded-l-lg p-2 border-blue-600  hover:bg-blue-600 hover:cursor-pointer" 
+          className="border  border-r-0 rounded-l-lg p-2 border-blue-600  hover:bg-blue-600 hover:cursor-pointer"
           onClick={onPrev}
         >
           Previous

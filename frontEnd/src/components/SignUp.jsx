@@ -17,13 +17,14 @@ const SignUp = () => {
       password,
     })
       .then((res) => {
+        alert(res.data.message)
         if (res.data.status) {
-          console.log(`${res}`);
           navigator("/sign-in");
         }
       })
       .catch((err) => {
-        console.log(err);
+        alert(err.message)
+        console.log(err.message);
       });
   };
   return (
