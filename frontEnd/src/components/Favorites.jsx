@@ -5,6 +5,10 @@ const Favorites = () => {
     const storedItems = localStorage.getItem("favourites");
     return storedItems ? JSON.parse(storedItems) : [];
   });
+    useEffect(() => {
+    /*Updata data on loca storage*/
+    localStorage.setItem("favourites", JSON.stringify(favouritesList));
+  }, [favouritesList]);
 
   const [favoriteMovies, setFavoriteMovies] = useState([]);
   useEffect(() => {
@@ -20,13 +24,15 @@ const Favorites = () => {
     };
 
     fetchData();
-  }, []);
+  }, [favouritesList]);
   // Remove from favorits
 
-  const removefromFavorits = (id) => {
-    setFavorites((prevItems) => {
+  const removefromFavorits = (movie) => {
+    console.log(movie)
+    
+    setFavoritesList((prevItems) => {
       const updatedItems = [...prevItems];
-      updatedItems.splice(favourites.indexOf(id), 1);
+      updatedItems.splice(favouritesList.indexOf(movie.id), 1);
       return updatedItems;
     });
   };
@@ -44,7 +50,7 @@ const Favorites = () => {
             <p className="text-gray-700 mb-2">Rating: {movie.vote_average}</p>
           </div>
           <div className="justify-end ">
-            <button className=" bg-red-500 text-white px-4 py-2 rounded-md hover:bg-red-700 focus:outline-none focus:ring focus:border-red-900">Remove</button>
+            <button  onClick={()=>removefromFavorits(movie)} className=" bg-red-500 text-white px-4 py-2 rounded-md hover:bg-red-700 focus:outline-none focus:ring focus:border-red-900">Remove</button>
           </div>
         </div>
       ))}
