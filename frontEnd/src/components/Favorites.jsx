@@ -9,7 +9,6 @@ const Favorites = () => {
   const [favoriteMovies, setFavoriteMovies] = useState([]);
   useEffect(() => {
     const fetchData = async () => {
-      // const urls = ['url1', 'url2', 'url3']; // Array of URLs to fetch
       const requests = favouritesList.map((id) => fetch(`https://api.themoviedb.org/3/movie/${id}?api_key=4b26cdced56684c3ddf93846a852c5c0`).then(response => response.json()));
 
       try {
@@ -22,6 +21,15 @@ const Favorites = () => {
 
     fetchData();
   }, []);
+  // Remove from favorits
+
+  const removefromFavorits = (id) => {
+    setFavorites((prevItems) => {
+      const updatedItems = [...prevItems];
+      updatedItems.splice(favourites.indexOf(id), 1);
+      return updatedItems;
+    });
+  };
 
   
   return (
