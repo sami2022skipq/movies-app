@@ -1,8 +1,6 @@
-import React, { useState } from "react";
 import { Link, useLocation } from "react-router-dom";
 
 const NavBar = () => {
-  const [user, setUser] = useState("");
 
   let location = useLocation();
 
@@ -18,13 +16,7 @@ const NavBar = () => {
         <Link className="p-1 rounded-md hover:bg-slate-600" to="/fav">
           Favorites
         </Link>
-        {/* <Link className="p-1 rounded-md hover:bg-slate-600" to="/sign-in">
-          Log In
-        </Link>
-        <Link className="p-1 rounded-md hover:bg-slate-600" to="/sign-up">
-          Sign Up
-        </Link> */}
-        {/* <form className="flex justify-end items-end" role="search"> */}
+        
         {localStorage.getItem("token") ? (
           <div>
             <Link
@@ -52,7 +44,6 @@ const NavBar = () => {
             )}
           </div>
         )}
-        {/* </form> */}
       </div>
     </>
   );
